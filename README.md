@@ -32,11 +32,12 @@ Your first task is to visualize an earthquake dataset. Complete the following st
 1. Get your dataset. To do so, follow these steps:
     - The USGS provides earthquake data in a number of different formats, updated every 5 minutes. Visit the USGS GeoJSON Feed Links to an external site.page and choose a dataset to visualize. The following image is an example screenshot of what appears when you visit this link:
 
-![3-Data](https://github.com/terryschoch/leaflet-challenge/blob/main/images/3-Data.jpeg)
+    ![3-Data](https://github.com/terryschoch/leaflet-challenge/blob/main/images/3-Data.jpeg)
+
 
     - When you click a dataset (such as "All Earthquakes from the Past 7 Days"), you will be given a JSON representation of that data. Use the URL of this JSON to pull in the data for the visualization. The following image is a sampling of earthquake data in JSON format:
 
-![4-JSON](https://github.com/terryschoch/leaflet-challenge/blob/main/images/4-JSON.jpeg)
+    ![4-JSON](https://github.com/terryschoch/leaflet-challenge/blob/main/images/4-JSON.jpeg)
 
 2. Import and visualize the data by doing the following:
     - Using Leaflet, create a map that plots all the earthquakes from your dataset based on their longitude and latitude.
@@ -63,6 +64,9 @@ The following image is an example screenshot of what you should produce:
 
 Perform the following tasks:
     - Plot the tectonic plates dataset on the map in addition to the earthquakes.
+
     - Add other base maps to choose from.
+
     - Put each dataset into separate overlays that can be turned on and off independently.
+
     - Add layer controls to your map.

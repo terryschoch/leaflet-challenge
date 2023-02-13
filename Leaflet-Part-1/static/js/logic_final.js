@@ -44,6 +44,7 @@ d3.json(queryurl).then((response) => {
     // Initiate popupText variable to provide additional information
     var popupText = `<h3>${metadata.place}</h3><hr>
     <strong>Magnitude:</strong> ${metadata.mag}<br>
+    <strong>Depth:</strong> ${depth} km<br>
     <strong>Date: </strong>${new Date(metadata.time)}<br>    
     <a href="${metadata.url}">Further Info</a>`;
 
