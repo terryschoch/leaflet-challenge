@@ -1,124 +1,135 @@
-// Define the urls to be queried and scraped for data
-var plateUrl = "Leaflet-Part-2/static/js/plates.geojson";
-// var plateUrl = "https://github.com/fraxen/tectonicplates/blob/master/GeoJSON/PB2002_plates.json";
-var quakeUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
+// Declare globals to hold the API endpoints to be queried and scraped for data
+const plateUrl = "Leaflet-Part-2/static/js/plates.geojson";
+// Declare plateUrl = "https://github.com/fraxen/tectonicplates/blob/master/GeoJSON/PB2002_plates.json";
+const quakeUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
 // Perform an API call on the plateUrl to scrape the GeoJSON data for the tectonic plate information
-d3.json(plateUrl).then(function(data) {
-  // Create a GeoJSON layer (L.geoJson) with the retrieved data
-  plates = L.geoJson(data, {
+d3.json(plateUrl).then((plateData) => {
+  console.log(plateData)
+  // Use L.geoJSON to create a map layer with the retrieved plateData
+  plates = L.geoJSON(plateData, {
     // Style each "feature" of the retrieved tectonic plates
     style: function(feature) {
       return {
         color: "red",
+        fillColor: "black",
         fillOpacity: 0,
-        weight: 3
+        weight: 2
       };
     },
-    // bind Popup information with each plate's name
+    // Use onEathFeature to apply changes to each individual feature
     onEachFeature: function(feature,layer){
+      // Set the mouse events to change the map styling.
+      layer.on({
+        // When a user's mouse cursor touches a map feature, the mouseover event calls this function, which makes that feature's opacity change to 50% so that it stands out.
+        mouseover: function(event) {
+          layer = event.target;
+          layer.setStyle({
+            fillOpacity: 0.4
+          });
+        },
+        // When the cursor no longer hovers over a map feature (that is, when the mouseout event occurs), the feature's opacity reverts back to 0%.
+        mouseout: function(event) {
+          layer = event.target;
+          layer.setStyle({
+            fillOpacity: 0
+          });
+        }
+      });
+      // Use .bindPopup function to display each plate's name on click
       layer.bindPopup(`<strong>${feature.properties.PlateName} Plate</strong>`);
     }
   });
     
-  // Perform a second API call call to the quakeUrl to retrieve earthquake results  
-  d3.json(quakeUrl).then((results) => {
-    // Initiate variable to hold earthquake markers
-    var earthquakes = [];
-    // Define function to colour code each marker based on depth of earthquake
-    function depthColor(depth) {
-      if (depth < 10) return "#00ff00";
-      else if (depth < 20) return "#ccff00";
-      else if (depth < 50) return "#ffff00";
-      else if (depth < 70) return "#ffdd00";
-      else if (depth < 90) return "#ffaa00";
-      else return "#ff0000";      
+  // Perform a second API call call, this time on the quakeUrl to retrieve earthquake results
+  d3.json(quakeUrl).then((earthquakeData) => {
+    console.log(earthquakeData)
+    // Once we get a response, send the earthquakeData.features object to the createFeatures function
+    createFeatures(earthquakeData.features);
+  });
+
+  // Define a depthColor function to color code markers based on depth of earthquake
+  function depthColor(depth) {
+    if (depth < 10) return "#00ff00";
+    else if (depth < 20) return "#ccff00";
+    else if (depth < 50) return "#ffff00";
+    else if (depth < 70) return "#ffdd00";
+    else if (depth < 90) return "#ffaa00";
+    else return "#ff0000";
+  }
+
+  // Define a createFeatures function that we want to run once for each feature in the features array
+  function createFeatures(earthquakeData) {
+    console.log(earthquakeData)
+    // Use .bindPopup function to give each feature a popup that describes the place, magnitude, time of the earthquake and a url to further information
+    function onEachFeature(feature, layer) {
+      layer.bindPopup(`<h3>${feature.properties.place}</h3><hr>
+      <strong>Magnitude:</strong> ${feature.properties.mag}<br>
+      <strong>Depth:</strong> ${feature.geometry.coordinates[2]} km<br>
+      <strong>Date: </strong>${new Date(feature.properties.time)}<br>    
+      <a href="${feature.properties.url}">Further Info</a>`);       
     }
-    
-    // Initiate variable earthquakeData to loop through ".features"/isolated JSON data
-    var earthquakeData = results.features
-
-    // Create loop to run through earthquakeData variable
-    for (var i = 0; i < earthquakeData.length; i++) {
-      // initiate location variable to isolate ".geometry" object
-      var location = earthquakeData[i].geometry;
-      // isolate depth coordinates and assign to variable
-      var depth = (location.coordinates[2])
-      // initiate metadata variable to isolate ".properties" object
-      var metadata = earthquakeData[i].properties;
-      // Initiate popupText variable and provide additional information to be included
-      var popupText = `<h3>${metadata.place}</h3><hr>
-      <strong>Magnitude:</strong> ${metadata.mag}<br>
-      <strong>Depth:</strong> ${depth} km<br>
-      <strong>Date: </strong>${new Date(metadata.time)}<br>    
-      <a href="${metadata.url}">Further Info</a>`; 
-
-      // Add each earthquake marker as it is created to the earthquakes variable using .push
-      earthquakes.push(
-        // Define Marker type as "circle"; isolate lat, long coordinates
-        L.circleMarker([location.coordinates[1], location.coordinates[0]], {
-          // Define appearance of markers and use .bind to add Popup information
+  
+    // Create a GeoJSON layer that contains the features array on the earthquakeData object
+    var earthquakes = L.geoJSON(earthquakeData, {
+      pointToLayer: function(feature, latlng) {
+        return new L.CircleMarker(latlng, {
+          // Define appearance of markers, referencing depthColor function to assign colors
           stroke: true,        
           weight: 1,
-          color: "#000000",
+          color: '#000000',
           opacity: .4,        
-          fillColor: depthColor(depth),
+          fillColor: depthColor(feature.geometry.coordinates[2]),
           fillOpacity: 0.4,
-          radius: (metadata.mag * 4),      
-        }).bindPopup(popupText)
-      );    
-    }
-    // Call on createMap function to create and populate map
+          radius: (feature.properties.mag * 4)          
+        });
+      },
+      // Run the onEachFeature function once for each piece of data in the array
+      onEachFeature: onEachFeature
+    });
+      
+    // Send our earthquakes layer to the createMap function/
     createMap(earthquakes);
-  });
+  }
 });
 
 // Define createMap function to establish base layers, overlays and legend
 function createMap(earthquakes) {
-  // Create the base/tile layers that will be the background of our map.
+  // Create the base/tile layers that will be the background of our map
   var streetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   });
 
   var topoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-    maxZoom: 17,
     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
   });
 
   var esriMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}', {
     attribution: 'Tiles &copy; Esri &mdash; Source: USGS, Esri, TANA, DeLorme, and NPS',
     maxZoom: 13
-  });
+  });  
 
-  var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
-    maxZoom: 20,
-    subdomains:['mt0','mt1','mt2','mt3']
-});
-
-  // Create a layer group for the earthquakes
-  var quakes = L.layerGroup(earthquakes);    
-
-  // Create a baseMaps object to hold our base layers and later add to the layer control.
+  // Create a baseMaps object to hold our base layers and later add to the layer control
   var baseMaps = {
     "Street": streetMap,
     "Topographic": topoMap,
     "ESRI": esriMap
   };
 
-  // Create an overlays object to hold our overlay layers and later add to the layer control.
+  // Create an overlays object to hold our overlay layers and later add to the layer control
   var overlayMaps = {
     "Tectconic Plates": plates,
-    "Earthquakes": quakes
+    "Earthquakes": earthquakes
   };
 
   // Define a map object with our default layers.
   var myMap = L.map("map", {
-    center: [40.0, -95.0],
-    zoom: 3.25,
-    layers: [streetMap, plates, quakes]
+    center: [35.0522, -118.2437],
+    zoom: 4,
+    layers: [streetMap, plates, earthquakes]
   });
 
-  // Create a control for our layers, and add our baseMaps and overlayMaps to it.
+  // Create a control for our layers, and pass it our baseMaps and overlayMaps
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(myMap);
@@ -146,6 +157,6 @@ function createMap(earthquakes) {
     return div;
   }
   
-  // Adding the legend to the map
+  // Add the legend to the map
   legend.addTo(myMap);  
 };

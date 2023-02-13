@@ -26,6 +26,8 @@ The instructions for this activity are broken into two parts:
 
 
 ### Part 1: Create the Earthquake Visualization
+- https://terryschoch.github.io/leaflet-challenge/leaflet-part-1/
+
 ![2-BasicMap](https://github.com/terryschoch/leaflet-challenge/blob/main/images/2-BasicMap.jpeg)
 
 Your first task is to visualize an earthquake dataset. Complete the following steps:
@@ -54,6 +56,8 @@ Your first task is to visualize an earthquake dataset. Complete the following st
 
 
 ### Part 2: Gather and Plot More Data (Optional with no extra points earning)
+- https://terryschoch.github.io/leaflet-challenge/leaflet-part-2/
+
 Plot a second dataset on your map to illustrate the relationship between tectonic plates and seismic activity. You will need to pull in this dataset and visualize it alongside your original data. Data on tectonic plates can be found at https://github.com/fraxen/tectonicplates Links to an external site..
 
 This part is completely optional; you can complete this part as a way to challenge yourself and boost your new skills.
@@ -70,3 +74,8 @@ Perform the following tasks:
     - Put each dataset into separate overlays that can be turned on and off independently.
 
     - Add layer controls to your map.
+
+
+
+### *NOTE* ### 
+- The finalized Belly Button Biodiversity dashboard can be found at: https://terryschoch.github.io/leaflet-challenge/
