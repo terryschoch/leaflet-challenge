@@ -2,6 +2,8 @@
 
 ![1-Earthquake](https://github.com/terryschoch/leaflet-challenge/blob/main/images/1-Earthquake.jpeg)
 
+https://terryschoch.github.io/leaflet-challenge/
+
 ## Background
 The United States Geological Survey, or USGS for short, is responsible for providing scientific data about natural hazards, the health of our ecosystems and environment, and the impacts of climate and land-use change. Their scientists develop new methods and tools to supply timely, relevant, and useful information about the Earth and its processes.
 
@@ -26,7 +28,7 @@ The instructions for this activity are broken into two parts:
 
 
 ### Part 1: Create the Earthquake Visualization
-- https://terryschoch.github.io/leaflet-challenge/leaflet-part-1/
+- https://terryschoch.github.io/leaflet-challenge/Leaflet-Part-1/
 
 ![2-BasicMap](https://github.com/terryschoch/leaflet-challenge/blob/main/images/2-BasicMap.jpeg)
 
@@ -56,7 +58,7 @@ Your first task is to visualize an earthquake dataset. Complete the following st
 
 
 ### Part 2: Gather and Plot More Data (Optional with no extra points earning)
-- https://terryschoch.github.io/leaflet-challenge/leaflet-part-2/
+- https://terryschoch.github.io/leaflet-challenge/Leaflet-Part-2/
 
 Plot a second dataset on your map to illustrate the relationship between tectonic plates and seismic activity. You will need to pull in this dataset and visualize it alongside your original data. Data on tectonic plates can be found at https://github.com/fraxen/tectonicplates Links to an external site..
 
@@ -67,6 +69,7 @@ The following image is an example screenshot of what you should produce:
 ![5-Advanced](https://github.com/terryschoch/leaflet-challenge/blob/main/images/5-Advanced.jpeg)
 
 Perform the following tasks:
+
     - Plot the tectonic plates dataset on the map in addition to the earthquakes.
 
     - Add other base maps to choose from.
@@ -77,5 +80,5 @@ Perform the following tasks:
 
 
 
-### *NOTE* ### 
-- The finalized Belly Button Biodiversity dashboard can be found at: https://terryschoch.github.io/leaflet-challenge/
+#### **NOTE**
+- The finalized Leaflet Challenge Advanced site can be found at: https://terryschoch.github.io/leaflet-challenge/
