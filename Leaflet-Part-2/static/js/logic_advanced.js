@@ -1,5 +1,5 @@
 // Declare globals to hold the API endpoints to be queried and scraped for data
-const plateUrl = "Leaflet-Part-2/static/js/plates.geojson";
+const plateUrl = "../Leaflet-Part-2/static/js/plates.geojson";
 // Declare plateUrl = "https://github.com/fraxen/tectonicplates/blob/master/GeoJSON/PB2002_plates.json";
 const quakeUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
@@ -119,7 +119,7 @@ function createMap(earthquakes) {
   };
   // Define a map object with our default layers.
   var myMap = L.map("map", {
-    center: [35.0522, -118.2437],
+    center: [43.6532, -79.3832],
     zoom: 5,
     layers: [streetMap, plates, earthquakes]
   });

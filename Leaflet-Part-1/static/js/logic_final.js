@@ -1,6 +1,6 @@
 // Create our initial map object, set latitude and longitude as well as zoom level
 var myMap = L.map("map", {
-  center: [35.0522, -118.2437],
+  center: [43.6532, -79.3832],
   zoom: 5,
 });
 
