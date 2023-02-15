@@ -120,7 +120,7 @@ function createMap(earthquakes) {
   // Define a map object with our default layers.
   var myMap = L.map("map", {
     center: [35.0522, -118.2437],
-    zoom: 4,
+    zoom: 5,
     layers: [streetMap, plates, earthquakes]
   });
   // Create a control for our layers, and pass it our baseMaps and overlayMaps objects
