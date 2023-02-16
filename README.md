@@ -28,7 +28,7 @@ The instructions for this activity are broken into two parts:
 
 
 ### Part 1: Create the Earthquake Visualization
-- https://terryschoch.github.io/leaflet-challenge/Leaflet-Part-1/
+- Completed visualization for solely Part 1: https://terryschoch.github.io/leaflet-challenge/Leaflet-Part-1/
 
 ![2-BasicMap](https://github.com/terryschoch/leaflet-challenge/blob/main/images/2-BasicMap.jpeg)
 
@@ -58,7 +58,7 @@ Your first task is to visualize an earthquake dataset. Complete the following st
 
 
 ### Part 2: Gather and Plot More Data (Optional with no extra points earning)
-- https://terryschoch.github.io/leaflet-challenge/Leaflet-Part-2/
+- Completed visualization including both Parts 1 & 2: https://terryschoch.github.io/leaflet-challenge/
 
 Plot a second dataset on your map to illustrate the relationship between tectonic plates and seismic activity. You will need to pull in this dataset and visualize it alongside your original data. Data on tectonic plates can be found at https://github.com/fraxen/tectonicplates Links to an external site..
 
